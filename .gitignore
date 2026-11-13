@@ -1,0 +1,25 @@
+# Secrets (API keys)
+.env
+
+# Virtual environment
+ayantrik/
+.venv/
+venv/
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+
+# Generated data: rebuilt by ingestion
+data/chroma/
+data/processed/
+data/uploads/
+# Evaluation output
+tests/eval/last_run.json
+tests/fixtures/
+
+# Editor and OS
+.vscode/
+.DS_Store
+Thumbs.db

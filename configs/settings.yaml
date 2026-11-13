@@ -1,0 +1,104 @@
+#non secret settings. group by purpose
+
+query:
+  min_query_chars : 2
+  max_query_chars: 1000
+  max_documents_per_query : 5
+
+audio:
+  allowed_extensions: [".wav", ".mp3", ".m4a"]
+  max_file_mb: 25
+  max_duration_seconds: 120
+  stt_model: "base"
+  language: "en"
+  min_rms: 0.003
+
+image:
+  allowed_extensions: [".png", ".jpg", ".jpeg", ".webp"]
+  max_file_mb: 10
+  embedding_model: ""      # still to be chosen:probably siglp
+  captioning_model: ""     # still to be chosen : probably gemini
+  max_image_pixels: 25000000
+  max_side_pixels: 1600
+  image:
+  image:
+  vision_model: "nvidia/nemotron-3.5-super-vl-120b-a12b"
+  max_side_pixels: 1600
+  
+spell_correction:
+  vocab_path: "data/vocab/general_en.txt"
+  max_edit_distance: 2
+
+followup:
+  max_history_turns: 4        # how many past messages the LLM sees
+  max_words_to_check: 8       # questions this short are treated as possible follow-ups
+  llm_model: "gemini-3.5-flash-lite"
+  fallback_model: ""          # a second model to try if the first is overloaded (optional)
+  timeout_seconds: 20
+
+ingestion:
+  allowed_extensions: [".pdf", ".docx", ".txt"]
+  max_file_mb: 100
+  recursive: true
+  max_files_per_run: 5
+  min_page_chars: 20      # fewer characters than this = probably a scanned page
+  min_image_px: 100         # skip images smaller than this (width and height), like icons
+  max_repeat_pages: 3       # an image on more pages than this is a logo, skip it
+  image_dpi: 150
+  max_images_per_document: 30
+  extract_images: true
+  caption_delay_seconds: 4
+  caption_retries: 1
+  caption_retry_wait: 10
+  caption_batch_size: 2      # seconds to wait after a 429
+  max_image_text_chars: 300
+
+
+chunking:
+  chunk_size: 800
+  chunk_overlap: 100
+  min_chars: 30
+  table_heading_lookup_pts: 40    # how far above a table to look (about 3 lines)
+  table_heading_max_chars: 150
+  max_line_gap_pts: 40     # a vertical gap bigger than this starts a new chunk
+
+embedding:
+  model: "BAAI/bge-small-en-v1.5"     # my default; tell me if your old project used another
+  batch_size: 32
+
+storage:
+  chroma_path: "data/chroma"
+
+llm:
+  provider: "nvidia"
+  model: "nvidia/nemotron-3.5-super-vl-120b-a12b"
+  base_url: "https://integrate.api.nvidia.com/v1"
+  temperature: 0
+  max_context_chunks: 5
+  timeout_seconds: 60
+
+
+retrieval:
+  vector_k: 20
+  bm25_k: 20
+  rrf_k: 60
+  candidates: 15
+
+reranker:
+  model: BAAI/bge-reranker-base
+  top_n: 5
+
+  
+grading:
+  min_rerank_score: 0.3
+  chunks_to_grade: 3
+  hard_floor: 0.002
+  skip_retry_below: 0.002
+llm:
+  model: gemini-3.6-flash
+  fallback_model: nvidia/nemotron-3.5-super-vl-120b-a12b   # copy from image.vision_model
+  timeout_seconds: 30
+
+generation:
+  chunks_to_answer: 5
+  

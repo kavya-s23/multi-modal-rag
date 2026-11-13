@@ -1,0 +1,52 @@
+# answerable: true  -> the document answers it. Optional checks:
+#     pages:    a cited page must be one of these
+#     keywords: at least one must appear in the answer (case-insensitive)
+# answerable: false -> the graph must refuse ("Not in the document")
+# type is only a label for the report.
+
+- question: what is a platter
+  type: in_scope
+  answerable: true
+  pages: [3, 4]
+  keywords: [circular, disk]
+
+- question: how does a disk organise information into tracks
+  type: paraphrase
+  answerable: true
+  keywords: [track]
+
+- question: what is the standard size of a disk block
+  type: in_scope
+  answerable: true
+  keywords: ["512"]
+
+- question: what are the labels in the physical disk diagram
+  type: figure
+  answerable: true
+  keywords: [track, sector, platter]
+
+- question: what is the cost per gigabyte of a hard disk
+  type: table
+  answerable: true
+  keywords: ["0.10", "gb"]
+
+- question: what is the capital of France
+  type: off_topic
+  answerable: false
+
+- question: what is a flower
+  type: off_topic
+  answerable: false
+
+- question: who invented the hard disk
+  type: near_miss
+  answerable: false
+
+- question: what is virtual memory
+  type: near_miss
+  answerable: false
+
+- question: fetch the names of all experiments from the lab manual
+  type: list
+  answerable: true
+  keywords: [dax, tableau]
